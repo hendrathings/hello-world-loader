@@ -16,7 +16,7 @@ module.exports = function (env, argv) {
     module: {
       rules: [
         {
-          test: /\.scss$/,
+          test: /\.scss$|\.sass$/,
           use: [
             {
               loader: path.resolve('scripts/scss-bundle-loader/index.js'),
@@ -31,7 +31,11 @@ module.exports = function (env, argv) {
     plugins: [
       new webpack.NoEmitOnErrorsPlugin(),
       new SCSSBundlePlugin({
-        file: path.join(__dirname, 'src/index.sass')
+        file: path.join(__dirname, 'src/index.sass'),
+        type: 'sass',
+        output: {
+          name: '_theme'
+        }
       })
     ],
 

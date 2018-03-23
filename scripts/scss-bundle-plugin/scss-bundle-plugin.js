@@ -24,8 +24,11 @@ SCSSBundlePlugin.prototype.apply = function(compiler) {
       var listImportFile = [];
       for (var index = 0; index < sourceArray.length; index++) {
         var element = sourceArray[index];
-        var filePath = path.resolve(rootPath + "_" + element.replace(/^(@import\s\")|\"\;|\r\n|\r|\n/g, "") + ".scss");
-        listImportFile.push(filePath);
+        var filename = element.replace(/^(@import)\s(\'|\")|\'|\"|\r\n|\r|\n/g, "");
+        if (filename !== '') {
+          var filePath = path.resolve(rootPath + "_" + filename + "." + that.options.type);
+          listImportFile.push(filePath);
+        }
       }
 
       async.eachSeries(
@@ -48,7 +51,7 @@ SCSSBundlePlugin.prototype.apply = function(compiler) {
           }
 
           // Insert this list into the Webpack build as a new file asset:
-          compilation.assets['_theme.scss'] = {
+          compilation.assets[that.options.output.name + '.' + that.options.type] = {
             source: function() {
               return that.scssBundle;
             },

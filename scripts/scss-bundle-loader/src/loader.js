@@ -12,15 +12,16 @@ export default function loader(source) {
   const addDependency = this.addDependency;
   const emitFile = this.emitFile;
   const that = this;
+  const extFile = this.resourcePath.split('.').pop();
 
-  getImportFile(rootPath, sourceArray);
+  getImportFile(rootPath, sourceArray, extFile);
 
-  function getImportFile(rootPath, arrayFileImport) {
+  function getImportFile(rootPath, arrayFileImport, extFile) {
     let scssBundle = '';
     let listImportFile = [];
     for (let index = 0; index < arrayFileImport.length; index++) {
       const element = arrayFileImport[index];
-      let filePath = path.resolve(rootPath + "_" + element.replace(/^(@import\s\")|\"\;|\r\n|\r|\n/g, "") + ".scss");
+      let filePath = path.resolve(rootPath + "_" + element.replace(/^(@import\s\")|\"\;|\r\n|\r|\n/g, "") + "." + extFile);
       listImportFile.push(filePath);
     }
 
@@ -32,7 +33,7 @@ export default function loader(source) {
           if (!err && err != null) {
             throw err;
           }
-          scssBundle += content.toString() + '\n';
+          scssBundle += content + '\n';
 
           // Calling cb makes it go to the next item.
           cb(err);
