@@ -5,6 +5,6 @@ test('Bundle all to one file', async () => {
   debugger;
   const output = stats.toJson().modules[0].source;
   console.log(output);
-debugger;
-  expect(output).toBe(`export default "Hey Alice!\\n"`);
+  debugger;
+  expect(output).toBe(`export default __webpack_public_path__ + \"[hash].scss\";`);
 });
