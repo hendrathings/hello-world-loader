@@ -11,7 +11,7 @@ const SCSSBundlePlugin = require('./scripts/scss-bundle-plugin/scss-bundle-plugi
 module.exports = function (env, argv) {
   return {
     entry: [
-      path.join(__dirname, 'src/index.scss')
+      path.join(__dirname, 'src/index.sass')
     ],
     module: {
       rules: [
@@ -31,7 +31,7 @@ module.exports = function (env, argv) {
     plugins: [
       new webpack.NoEmitOnErrorsPlugin(),
       new SCSSBundlePlugin({
-        file: path.join(__dirname, 'src/index.scss')
+        file: path.join(__dirname, 'src/index.sass')
       })
     ],
 
