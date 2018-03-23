@@ -16,7 +16,7 @@ export default (fixture, options = {}) => {
         use: {
           loader: path.resolve(__dirname, '../src/loader.js'),
           options: {
-            name: 'Alice'
+            name: '[name]-[hash].[ext]'
           }
         }
       }]

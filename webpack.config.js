@@ -1,23 +1,27 @@
 const webpack = require('webpack');
+const path = require('path');
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 /**
  * Webpack configuration
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function (options) {
-  return webpackMerge(commonConfig({ env: ENV }), {
-    entry: {
-
-    },
+module.exports = function (env, argv) {
+  return {
+    entry: [
+      path.join(__dirname, 'src/index.scss')
+    ],
     module: {
       rules: [
         {
           test: /\.scss$/,
           use: [
             {
-              loader: path.resolve('scripts/scss-bundle-loader/loader.js'),
-              options: {/* ... */}
+              loader: path.resolve('scripts/scss-bundle-loader/index.js'),
+              options: {
+                name: '[name]-[hash].[ext]'
+              }
             }
           ]
         }
@@ -28,5 +32,5 @@ module.exports = function (options) {
     ],
 
     devtool: 'eval-source-map'
-  });
+  };
 }
