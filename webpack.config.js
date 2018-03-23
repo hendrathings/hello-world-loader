@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
+const SCSSBundlePlugin = require('./scripts/scss-bundle-plugin/scss-bundle-plugin.js');
 
 /**
  * Webpack configuration
@@ -28,7 +29,10 @@ module.exports = function (env, argv) {
       ]
     },
     plugins: [
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.NoEmitOnErrorsPlugin(),
+      new SCSSBundlePlugin({
+        file: path.join(__dirname, 'src/index.scss')
+      })
     ],
 
     devtool: 'eval-source-map'
